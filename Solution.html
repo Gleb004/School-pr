@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Solution</title>
+    <style>
+        .main-text{
+            border: cadetblue solid 1px;
+            border-radius: 20px;
+            font-size:5px;
+            color: white;
+            height: 100%;
+            width: 64%;
+            position: fixed;
+            top: 0;
+            overflow-x: hidden;
+            padding: 16px 32px;
+            text-align: center;
+            left:16%;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.5);
+            background: white;
+            white-space: pre;
+        }
+        body{
+            background-image: url(img/bg-page.png);
+        }
+
+        .text-style{
+            position: absolute;
+            font-size: 16px;
+            color:black;
+            left:4%;
+            padding-bottom: 1px;
+            font-family: italic ;
+        }
+        .button {
+            position: fixed;
+            padding: 4px 4px;
+            font-size: 22px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            border-radius: 16px;
+            opacity:0.5;
+            transition: 0.3s;
+            font-family:Cursive;
+        }
+
+        .button:hover {
+            padding: 12px;
+            background-color: darkgrey;
+            opacity:0.9;
+            box-shadow: 0 5px #666;
+            transform: translate(5px);
+        }
+
+        .button:active {
+            background-color: darkgrey;
+            box-shadow: 0 5px #666;
+            transform: translateY(10px);
+            transition: 0.5s;
+        }
+
+        A:link {
+            text-decoration: none;
+            opacity:1;
+            transition: 0.5s;
+            font-size: 20px;
+        }
+        A:visited { text-decoration: none; }
+        A:active { text-decoration: none; }
+        A:hover {
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            transition: 0.4s;
+        }
+    </style>
+</head>
+
+<div class="main-text">
+    <div id ="bottom" class="border-bottom"></div>
+    <div class="border-right"></div>
+    <span class="text-style" style="font-size: 24px;">Дано:</span>
+    <span class="text-style" style="font-size: 24px;left:30%;">Решение:</span>
+    <span class="text-style" style="top: 80px">ΔABC;</span>
+
+    <div id ="ABmain" class="text-style" style="display:none">Сторона AB = <span id ="AB1"></span>;</div>
+    <div id ="BCmain" class="text-style" style="display:none">Сторона BC = <span id ="BC1"></span>;</div>
+    <div id ="ACmain" class="text-style" style="display:none">Сторона AC = <span id ="AC1"></span>;</div>
+    <div id ="AHmain" class="text-style" style="display:none">Высота AH = <span id ="AH1"></span>;</div>
+    <div id ="BHmain" class="text-style" style="display:none">Высота BH = <span id ="BH1"></span>;</div>
+    <div id ="CHmain" class="text-style" style="display:none">Высота CH = <span id ="CH1"></span>;</div>
+
+    <span class="text-style" style="font-size: 24px;top: 225px">Найти:</span>
+
+    <div id ="ABmain1" class="text-style" style="display:none">Сторону AB;</div>
+    <div id ="BCmain1" class="text-style" style="display:none">Сторону BC;</div>
+    <div id ="ACmain1" class="text-style" style="display:none">Сторону AC;</div>
+    <div id ="AHmain1" class="text-style" style="display:none">Выстоу AH;</div>
+    <div id ="BHmain1" class="text-style" style="display:none">Выстоу BH;</div>
+    <div id ="CHmain1" class="text-style" style="display:none">Выстоу CH;</div>
+
+    <span id ="AHfind" style ="display:none">
+        <span class="text-style" style="  font-size: 19px;left: 18%;top:45px">
+        1) Найдём высоту AH по формуле:</span>
+        <span class="text-style" style="  font-size: 19px;left: 18%;top:75px">
+        h<sub>b</sub>=2*(√(p-a)(p-b)(p-c))/b;</span>
+        <span class="text-style" style="  font-size: 19px;left: 18%;top:105px">
+        p=(a+b+c)/2;</span>
+        <span class="text-style" style="  font-size: 19px;left: 18%;top:135px">
+        a = AB; b = BC; c = AC;</span>
+         <span class="text-style" style="  font-size: 19px;left: 18%;top:165px">
+        h<sub>b</sub>=<span id = AHnumf></span></span>
+    </span>
+
+    <span id ="BHfind" style ="display:none">
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:225px">
+        2) Найдём высоту BH по формуле:</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:255px">
+        h<sub>c</sub>=2*(√(p-a)(p-b)(p-c))/c;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:285px">
+        p=(a+b+c)/2;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:315px">
+        a = AB; b = BC; c = AC;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:345px">
+        h<sub>c</sub>=<span id = BHnumf></span></span>
+        </span>
+
+    <span id ="BHfind1" style ="display:none">
+         <span class="text-style" style="  font-size: 19px;left: 18%;top:45px">
+        1) Найдём высоту BH по формуле:</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:75px">
+        h<sub>c</sub>=2*(√(p-a)(p-b)(p-c))/c;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:105px">
+        p=(a+b+c)/2;</span>
+    <span class="text-style" style="  font-size: 19px;left:18%;top:135px">
+        a = AB; b = BC; c = AC;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:165px">
+        h<sub>c</sub>=<span id = BHnumf3></span></span>
+        </span>
+
+    <span id ="CHfind" style ="display:none">
+    <span class="text-style" style="  font-size: 19px;left: 4%;top:375px">
+        3) Найдём высоту CH по формуле:</span>
+    <span class="text-style" style="  font-size: 19px;left: 4%;top:405px">
+        h<sub>a</sub>=2*(√(p-a)(p-b)(p-c))/a;</span>
+    <span class="text-style" style="  font-size: 19px;left: 4%;top:435px">
+        p=(a+b+c)/2;</span>
+    <span class="text-style" style="  font-size: 19px;left: 4%;top:465px">
+        a = AB; b = BC; c = AC;</span>
+    <span class="text-style" style="  font-size: 19px;left: 4%;top:495px">
+        h<sub>a</sub>=<span id = CHnumf></span></span>
+</span>
+
+    <span id ="CHfind1" style ="display:none">
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:225px">
+        2) Найдём высоту CH по формуле:</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:255px">
+        h<sub>a</sub>=2*(√(p-a)(p-b)(p-c))/a;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:285px">
+        p=(a+b+c)/2;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:315px">
+        a = AB; b = BC; c = AC;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:345px">
+        h<sub>a</sub>=<span id = CHnumf4></span></span>
+</span>
+    <span id ="CHfind2" style ="display:none">
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:45px">
+        1) Найдём высоту CH по формуле:</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:75px">
+        h<sub>a</sub>=2*(√(p-a)(p-b)(p-c))/a;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:105px">
+        p=(a+b+c)/2;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:135px">
+        a = AB; b = BC; c = AC;</span>
+    <span class="text-style" style="  font-size: 19px;left: 18%;top:165px">
+        h<sub>a</sub>=<span id = CHnumf5></span></span>
+</span>
+
+
+        <span class="text-style" id ="ansAH" style=";display:none; font-size: 24px;right:-5%;bottom:12%">
+        Ответ: 1)AH=<span id = AHnumf1></span>;</span>
+        <span class="text-style" id ="ansBH" style="display:none; font-size: 24px;right:-5%;bottom:8%">
+         2)BH=<span id = BHnumf1></span>;</span>
+    <span class="text-style" id ="ansBH1" style="display:none; font-size: 24px;right:-5%;bottom:12%">
+         Ответ: 1)BH=<span id = BHnumf2></span>;</span>
+        <span class="text-style" id ="ansCH" style="display:none; font-size: 24px;right:-5%;bottom:4%">
+         3)CH=<span id = CHnumf1></span>;</span>
+    <span class="text-style" id ="ansCH1" style="display:none; font-size: 24px;right:-5%;bottom:8%">
+         2)CH=<span id = CHnumf2></span>;</span>
+    <span class="text-style" id ="ansCH2" style="display:none; font-size: 24px;right:-5%;bottom:4%">
+         Ответ: 1)CH=<span id = CHnumf3></span>;</span>
+
+
+    <div id="bottom2" class="border-bottom" style="width: 877px;top: 74%;margin-left: 1.5%"></div>
+
+
+    <button id="button01" class="button " style = "bottom:5%;margin-left:-22%;"
+            onclick="location.href = 'MyFile.html'">Edit Text</button>
+    <button id="button02" class="button " style = "bottom:5%;margin-left:-33%;  "
+            onclick="location.href = 'Drawing.html'">View Drawing</button>
+</div>
+<script>
+    let AB=0; let BC=0; let AC=0;let AH=0; let BH=0; let CH=0;
+    var isTrueABgiven=false;
+    AB=localStorage.getItem("whichABnum");
+    BC=localStorage.getItem("whichBCnum");
+    AC=localStorage.getItem("whichACnum");
+    AH=localStorage.getItem("whichAHnum");
+    BH=localStorage.getItem("whichBHnum");
+    CH=localStorage.getItem("whichCHnum");
+    var isTrueABfind=localStorage.getItem("isTrueABfind");
+    var isTrueBCfind=localStorage.getItem("isTrueBCfind");
+    var isTrueACfind=localStorage.getItem("isTrueACfind");
+    var isTrueAHfind=localStorage.getItem("isTrueAHfind");
+    var isTrueBHfind=localStorage.getItem("isTrueBHfind");
+    var isTrueCHfind=localStorage.getItem("isTrueCHfind");
+     isTrueABgiven=localStorage.getItem("isTrueABgiven");
+    var isTrueBCgiven=localStorage.getItem("isTrueBCgiven");
+    var isTrueACgiven=localStorage.getItem("isTrueACgiven");
+    var isTrueAHgiven=localStorage.getItem("isTrueAHgiven");
+    var isTrueBHgiven=localStorage.getItem("isTrueBHgiven");
+    var isTrueCHgiven=localStorage.getItem("isTrueCHgiven");
+</script>
+
+<script>
+    var i=0;var count01=0;var count02=0;
+    document.getElementById("AB1").innerHTML=AB;
+    document.getElementById("BC1").innerHTML=BC;
+    document.getElementById("AC1").innerHTML=AC;
+    document.getElementById("AH1").innerHTML=AH;
+    document.getElementById("BH1").innerHTML=BH;
+    document.getElementById("CH1").innerHTML=CH;
+    if(isTrueABgiven=="true") {
+        i++;document.getElementById("ABmain").style.display="block";
+        document.getElementById("ABmain").style.top=100+count01*20+'px';count01++;
+    }
+    if(isTrueACgiven=="true") {
+        i++;document.getElementById("ACmain").style.display="block";
+        document.getElementById("ACmain").style.top=100+count01*20+'px';count01++;
+    }if(isTrueBCgiven=="true") {
+        i++;document.getElementById("BCmain").style.display="block";
+        document.getElementById("BCmain").style.top=100+count01*20+'px';count01++;
+    } if(isTrueAHgiven=="true") {
+        i++;document.getElementById("AHmain").style.display="block";
+        document.getElementById("AHmain").style.top=100+count01*20+'px';count01++;
+    }if(isTrueBHgiven=="true") {
+        i++;document.getElementById("BHmain").style.display="block";
+        document.getElementById("BHmain").style.top=100+count01*20+'px';count01++;
+    }if(isTrueCHgiven=="true") {
+        i++;document.getElementById("CHmain").style.display="block";
+        document.getElementById("CHmain").style.top=100+count01*20+'px';count01++;
+    }
+    if(isTrueABfind=="true") {
+        document.getElementById("ABmain1").style.display="block";
+        document.getElementById("ABmain1").style.top=260+count02*20+'px';count02++;
+    }
+    if(isTrueACfind=="true") {
+        document.getElementById("ACmain1").style.display="block";
+        document.getElementById("ACmain1").style.top=260+count02*20+'px';count02++;
+    }if(isTrueBCfind=="true") {
+        document.getElementById("BCmain1").style.display="block";
+        document.getElementById("BCmain1").style.top=260+count02*20+'px';count02++;
+    } if(isTrueAHfind=="true") {
+        document.getElementById("AHmain1").style.display="block";
+        document.getElementById("AHmain1").style.top=260+count02*20+'px';count02++;
+    }if(isTrueBHfind=="true") {
+        document.getElementById("BHmain1").style.display="block";
+        document.getElementById("BHmain1").style.top=260+count02*20+'px';count02++;
+    }if(isTrueCHfind=="true") {
+        document.getElementById("CHmain1").style.display="block";
+        document.getElementById("CHmain1").style.top=260+count02*20+'px';count02++;
+    }
+    document.getElementById("bottom").style.top=14+i*2.5+'%';
+var co1=0;
+    if (isTrueAHfind=="true"){
+        let p = (AB*1+BC*1+AC*1)/2;
+        let hb = 2*(Math.sqrt(p*(p-AB)*(p-BC)*(p-AC)))/BC;
+        document.getElementById("AHfind").style.display="block";
+        document.getElementById("AHnumf").innerHTML=hb;
+        document.getElementById("AHnumf1").innerHTML=hb;
+        co1++;
+    } if (isTrueBHfind=="true"){
+        let p = (AB*1+BC*1+AC*1)/2;
+        let hc = 2*(Math.sqrt(p*(p-AB)*(p-BC)*(p-AC)))/AC;
+        document.getElementById("BHfind").style.display="block";
+        document.getElementById("BHnumf").innerHTML=hc;
+        document.getElementById("BHnumf1").innerHTML=hc;
+        document.getElementById("BHnumf2").innerHTML=hc;
+        document.getElementById("BHnumf3").innerHTML=hc;
+        co1++;
+    }if (isTrueCHfind=="true"){
+        let p = (AB*1+BC*1+AC*1)/2;
+        let ha = 2*(Math.sqrt(p*(p-AB)*(p-BC)*(p-AC)))/AB;
+        document.getElementById("CHnumf").innerHTML=ha;
+        document.getElementById("CHnumf1").innerHTML=ha;
+        document.getElementById("CHnumf2").innerHTML=ha;
+        document.getElementById("CHnumf3").innerHTML=ha;
+        document.getElementById("CHnumf4").innerHTML=ha;
+        document.getElementById("CHnumf5").innerHTML=ha;
+        co1++;
+        if (isTrueCHfind=="true") {
+            if ((isTrueAHfind == "false" && isTrueBHfind == "false") || isTrueAHfind == "false") {
+                document.getElementById("CHfind2").style.display = "block";
+            } else {
+                if (isTrueBHfind == "false") {
+                    document.getElementById("CHfind1").style.display = "block";
+                } else {
+                    document.getElementById("CHfind").style.display = "block"
+                }
+            }
+        }
+
+    }if (isTrueAHfind=="false"&&isTrueCHfind=="false"&&isTrueBHfind=="true"){
+        document.getElementById("BHfind1").style.display = "block";
+        document.getElementById("BHfind").style.display = "none";
+    }
+    if (isTrueAHfind=="true"){
+        document.getElementById("ansAH").style.display="block";
+    }if (isTrueBHfind=="true"){
+        if (isTrueAHfind=="false") {
+            document.getElementById("ansBH1").style.display = "block";
+        }else{
+            document.getElementById("ansBH").style.display = "block";
+        }
+    }if (isTrueCHfind=="true"){
+        if (isTrueAHfind=="false"&&isTrueBHfind=="false") {
+            document.getElementById("ansCH2").style.display="block";
+        }else{
+            if (isTrueAHfind=="false"||isTrueBHfind=="false") {
+                document.getElementById("ansCH1").style.display="block";
+            }else{
+                document.getElementById("ansCH").style.display="block";
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>
+<!--
+Сделать красивую ссылку на теорему
+-->

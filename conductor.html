@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+
+  <title>Conductor</title>
+  <style>
+
+    .btn {
+      font-family: Cursive;
+      border: none;
+      font-size:50px;
+      color: white;
+      height: 100%;
+      width: 50%;
+      position: fixed;
+      top: 0;
+      overflow-x: hidden;
+      padding: 16px 32px;
+      text-align: center;
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+    .left {
+      left: 0;
+      background-color: black;
+    }
+
+    .right {
+      right: 0;
+      background-color: red;
+    }
+
+    .btn:hover {
+      opacity: 1;
+      font-family: "Imprint MT Shadow";
+      font-size:90px;
+      transform: scale(1.1);
+      overflow: hidden;
+      z-index: 10;
+    }
+
+  </style>
+</head>
+<body>
+
+  <button class="btn left" onclick="location.href = 'Drawing.html'">Чертёж</button>
+  <button class="btn right" onclick="location.href = 'Solution.html'">Решение</button>
+
+
+</body>
+</html>
+
+

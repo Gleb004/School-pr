@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit-text</title>
+    <style>
+        textarea {
+            -webkit-user-select: text;
+            resize: none;
+            width: 99%;
+            height: 23px;
+            font-size: 20px;
+            border:none;
+            font-family: "Times New Roman";
+            display:block;
+            overflow:hidden;
+        }
+        body{
+            -webkit-user-select: none;
+            background-image: url(img/bg-page.png);
+        }
+        .main-text{
+            border: none;
+            border-radius: 20px;
+            font-family: Cursive;
+            font-size:5px;
+            color: white;
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            top: 0;
+            overflow-x: hidden;
+            padding: 16px 32px;
+            text-align: center;
+            left:24%;
+            box-shadow: 2px 0 12px rgba(0,0,0,0.6);
+            background: white;
+            white-space: pre;
+        }
+        .main-text .button{
+            position: fixed;
+            left:64%;
+            bottom: 5%;
+        }
+
+        .border-text{
+            border: midnightblue 2px solid;
+            opacity: 0.7;
+            border-radius:10px;
+            padding-top: 10px;
+            padding-right: 10px;
+            padding-left: 10px;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .button {
+            padding: 15px 25px;
+            font-size: 24px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: lightblue;
+            opacity: 0.8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999;
+            left:0;
+            transition: 0.4s;
+        }
+
+        .button:hover {
+            background-color:cornflowerblue;
+            opacity:0.9;
+            transition: 0.6s;
+        }
+
+        .button:active {
+            background-color: cornflowerblue;
+            box-shadow: 0 5px #666;
+            transform: translateY(5px);
+        }
+
+        .none-hidden{
+            width: 35px;
+            height: 19px;
+            font-size:16px;
+            border: solid 1px;
+            border-radius: 12px;
+            opacity:0.4;
+            position: absolute;
+            text-align: center;
+            transition:0.4s;
+            margin-left: 81.8%;
+            margin-top:-1.6%;
+        }
+        .none-hidden:focus{
+            opacity:1;
+            border-radius:5px;
+            transition:0.4s;
+        }
+        .success-1 {
+            border: none;
+            border-radius: 5px;
+            padding: 2px 11px;
+            font-size: 20px;
+            cursor: pointer;
+            background: purple;
+            color: white;
+            position: absolute;
+            transition: 0.7s;
+            left:10%;
+        }
+        .success-1:hover {
+            background-color: white;
+            color: purple;
+            transition: 0.7s;
+        }
+
+        .edit-button{
+            cursor: pointer;
+            border:none;
+            border-radius: 5px;
+            background: midnightblue;
+            text-align: center;
+            color:white;
+            padding:16px 12px;
+            font-size: 20px;
+            opacity: 0.9;
+            transition: 0.3s;
+            position: marker;
+            margin-top:2%;
+            margin-left: -92%;
+
+        }
+
+        .edit-button:hover {
+            opacity:1;
+            transform: scale(1.1);
+            overflow: hidden;
+            z-index: 2;
+
+        }
+        button,
+        button:active,
+        button:focus {
+            outline: none;
+        }
+        textarea,
+        textarea:active,
+        textarea:focus {
+            outline: none;
+        }
+        .maybe{
+            border: 2px blue solid;
+            color: blue;
+            opacity:0.5;
+            margin-left: -37%;
+            border-radius: 5px;
+            padding: 2px 11px;
+            font-size: 20px;
+            cursor: pointer;
+            background: white;
+            position: absolute;
+            transition: 0.5s;
+
+        }
+        .maybe:hover{
+            background-color: darkblue;
+            color: white;
+            transition: 0.5s;
+            transform: scale(1.1);
+            overflow: hidden;
+            z-index: 2;
+            opacity:0.9;
+        }
+        label{
+            font-size: 22px;
+            position:absolute;
+            margin-left: 80.5%;
+            color:black;
+            transition: 0.3s;
+            margin-top:-1.3%;
+            cursor: pointer;
+        }
+        label:hover{
+            opacity:1;
+            transform: scale(1.4);
+            overflow: hidden;
+            z-index: 2;
+        }
+        .bin{
+            cursor: pointer;
+            color: #999999;
+            opacity:0.4;
+            position:absolute;
+            overflow: hidden;
+            transition: 0.2s;
+            outline: none;
+            background: none;
+            border:none;
+            padding:0;
+            margin-top: 1.01%;
+            left:6%;
+        }
+        .bin:hover{
+            opacity:1;
+            color:red;
+
+        }
+        .bin-1{
+            cursor: pointer;
+            color: #999999;
+            opacity:0.4;
+            position:absolute;
+            overflow: hidden;
+            transition: 0.2s;
+            outline: none;
+            background: none;
+            border:none;
+            padding:0;
+            margin-top: -1.6%;
+            left:6%
+        }
+        .bin-1:hover{
+            opacity:1;
+            color:red;
+
+        }
+        img:hover {
+            animation: shake 0.6s;
+            animation-iteration-count: infinite;
+        }
+        p{
+            margin-bottom: -1%;
+        }
+        p.jump{
+            margin-bottom: 4%;
+        }
+        p.jump-2{
+            margin-top: -7.6%;
+        }
+
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0, 0.9);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            margin-bottom: 30%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .overlay a:hover, .overlay a:focus {
+            color: #f1f1f1;
+        }
+
+        .overlay .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 60px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .overlay a {font-size: 20px}
+            .overlay .closebtn {
+                font-size: 40px;
+                top: 15px;
+                right: 35px;
+            }
+        }
+        .triangle1{
+            position: absolute;
+            overflow: hidden;
+            outline: none;
+            border: solid 1px black;
+            border-radius: 20px;
+            padding:10px;
+            opacity: 0.3;
+            transition: 0.3s;
+        }
+         .triangle1:hover{
+            opacity: 0.6;
+            overflow: hidden;
+            z-index: 2;
+            padding-left: 40px;
+             transform: translate(-33px) scale(1.1);
+             transition: 0.2s;
+        }
+        .main-text .triangle1{
+            position: fixed;
+            left:60%;
+            bottom: 5%;
+            box-shadow: 0 2px #999;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <div class="overlay-content">
+        <a id="Nav01" href="#">Высота AH<sub>1</sub></a>
+        <a id="Nav02" href="#">Высота BH<sub>2</sub></a>
+        <a id="Nav03" href="#">Высота CH<sub>3</sub></a>
+        <a href="#">Биссектрисса AL<sub>1</sub>(!)</a>
+        <a href="#">Биссектрисса BL<sub>2</sub>(!)</a>
+        <a href="#">Биссектрисса CL<sub>3</sub>(!)</a>
+        <a id="Nav04" href="#">Сторона AB</a>
+        <a id="Nav05" href="#">Сторона BC</a>
+        <a id="Nav06" href="#">Сторона AC</a>
+        <a href="#">Медиана AM<sub>1</sub>(!)</a>
+        <a href="#">Медиана BM<sub>2</sub>(!)</a>
+        <a href="#">Медиана CM<sub>3</sub>(!)</a>
+        <a href="#">Площадь треугольника ABC(!)</a>
+        <a href="#">Периметр треугольника ABC(!)</a>
+        <p  id ="oncopy0" style="display: none"><a href="#">asd</a></p>
+    </div>
+</div>
+<div id="myNav1" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav1()">×</a>
+    <div class="overlay-content">
+        <a id="Nav11" href="#">Высота AH<sub>1</sub></a>
+        <a id="Nav12" href="#">Высота BH<sub>2</sub></a>
+        <a id="Nav13" href="#">Высота CH<sub>3</sub></a>
+        <a href="#">Биссектрисса AL<sub>1</sub>(!)</a>
+        <a href="#">Биссектрисса BL<sub>2</sub>(!)</a>
+        <a href="#">Биссектрисса CL<sub>3</sub>(!)</a>
+        <a id="Nav14" href="#">Сторона AB</a>
+        <a id="Nav15" href="#">Сторона BC</a>
+        <a id="Nav16" href="#">Сторона AC</a>
+        <a href="#">Медиана AM<sub>1</sub>(!)</a>
+        <a href="#">Медиана BM<sub>2</sub>(!)</a>
+        <a href="#">Медиана CM<sub>3</sub>(!)</a>
+        <a href="#">Площадь треугольника ABC(!)</a>
+        <a href="#">Периметр треугольника ABC(!)</a>
+        <p  id ="oncopy1" style="display: none"><a href="#"></a></p>
+    </div>
+</div>
+<div id="myNav2" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">×</a>
+    <div class="overlay-content">
+        <a id="Nav21" href="#">Высота AH<sub>1</sub></a>
+        <a id="Nav22" href="#">Высота BH<sub>2</sub></a>
+        <a id="Nav23" href="#">Высота CH<sub>3</sub></a>
+        <a href="#">Биссектрисса AL<sub>1</sub>(!)</a>
+        <a href="#">Биссектрисса BL<sub>2</sub>(!)</a>
+        <a href="#">Биссектрисса CL<sub>3</sub>(!)</a>
+        <a id="Nav24" href="#">Сторона AB</a>
+        <a id="Nav25" href="#">Сторона BC</a>
+        <a id="Nav26" href="#">Сторона AC</a>
+        <a href="#">Медиана AM<sub>1</sub>(!)</a>
+        <a href="#">Медиана BM<sub>2</sub>(!)</a>
+        <a href="#">Медиана CM<sub>3</sub>(!)</a>
+        <a href="#">Площадь треугольника ABC(!)</a>
+        <a href="#">Периметр треугольника ABC(!)</a>
+        <p  id ="oncopy2" style="display: none"><a href="#">asd</a></p>
+    </div>
+</div>
+<div id="myNav3" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav3()">×</a>
+    <div class="overlay-content">
+        <a id="Nav31" href="#">Высота AH<sub>1</sub></a>
+        <a id="Nav32" href="#">Высота BH<sub>2</sub></a>
+        <a id="Nav33" href="#">Высота CH<sub>3</sub></a>
+        <a href="#">Биссектрисса AL<sub>1</sub>(!)</a>
+        <a href="#">Биссектрисса BL<sub>2</sub>(!)</a>
+        <a href="#">Биссектрисса CL<sub>3</sub>(!)</a>
+        <a id="Nav34" href="#">Сторона AB</a>
+        <a id="Nav35" href="#">Сторона BC</a>
+        <a id="Nav36" href="#">Сторона AC</a>
+        <a href="#">Медиана AM<sub>1</sub>(!)</a>
+        <a href="#">Медиана BM<sub>2</sub>(!)</a>
+        <a href="#">Медиана CM<sub>3</sub>(!)</a>
+        <a href="#">Площадь треугольника ABC(!)</a>
+        <a href="#">Периметр треугольника ABC(!)</a>
+        <p  id ="oncopy3" style="display: none"><a href="#">asd</a></p>
+    </div>
+</div>
+<script>
+    function openNav() {
+        document.getElementById("myNav").style.width = "100%";
+    }
+    function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+    }
+    function openNav1() {
+        document.getElementById("myNav1").style.width = "100%";
+    }
+    function closeNav1() {
+        document.getElementById("myNav1").style.width = "0%";
+    } function openNav2() {
+        document.getElementById("myNav2").style.width = "100%";
+    }
+    function closeNav2() {
+        document.getElementById("myNav2").style.width = "0%";
+    }
+    function openNav3() {
+        document.getElementById("myNav3").style.width = "100%";
+    }
+    function closeNav3() {
+        document.getElementById("myNav3").style.width = "0%";
+    }
+</script>
+
+<div class="main-text">
+ <div class = "border-text">
+<textarea placeholder="Введите геометрическую задачу..." id="textarea" onkeydown="return event.key != 'Enter'"></textarea></div>
+    <p class="jump-2"><button class="edit-button" id ="accept" onclick="getit()">Accept</button></p>
+
+  <input id="tri1" type="image" onclick="tell()" class="triangle1" src="img/icons8-треугольник-26.png">
+
+    <table><tr id ="given" style="display: none"><td>
+        <input type="image" src="img/icon.png" class="bin" onclick=droptr(this),repare(this);>
+        <button class="success-1" onclick="openNav(),find(this),findbtn(this)">Сторона AB</button>
+        <textarea  class="none-hidden" maxlength="3"; onkeydown="return event.key != 'Enter'
+            &&(event.key == '0'||event.key == 'Backspace'||event.key == '1'||event.key == '2'
+                ||event.key == '3'||event.key == '4'||event.key == '5'||event.key == '6'||event.key == '7'
+                ||event.key == '8'||event.key == '9');" onkeyup=changecolor()></textarea>
+    </td></tr></table>
+
+    <p class="jump"><button class="maybe" id="probably1" onclick="openNav2()">Добавить данные задачи</button></p>
+    <p style="border-bottom:solid darkgrey 1px;"></p>
+
+    <table><tr id ="find" style="display: none"><td>
+                <button class="success-1"  onclick="openNav1(),find(this),findbtn(this)">Площадь треугольника ABC</button>
+                <label title="Answer: ?">?</label>
+                <input onclick=droptr(this),repare(this) type="image" src="img/icon.png" class="bin-1">
+            </td></tr></table>
+
+    <p> <button class="maybe" id ="probably2"  onclick="openNav3()">Добавить вопрос к задаче</button></p>
+    <button class="button" onclick=getinformation()>View Result</button>
+
+    <p style="font-size: 29px; color:white; -webkit-user-select: none;" >
+    Just
+    some
+    text</p>
+</div>
+<script>
+    var isTrueABgiven = new Boolean(false); var isTrueABfind = new Boolean(false);
+    var isTrueBCgiven = new Boolean(false); var isTrueBCfind = new Boolean(false);
+    var isTrueACgiven = new Boolean(false); var isTrueACfind = new Boolean(false);
+    var isTrueAHgiven = new Boolean(false); var isTrueAHfind = new Boolean(false);
+    var isTrueBHgiven = new Boolean(false); var isTrueBHfind = new Boolean(false);
+    var isTrueCHgiven = new Boolean(false); var isTrueCHfind = new Boolean(false);
+    var whichAB; var whichABnum=0;  var whichAH; var whichAHnum=0;
+    var whichBC; var whichBCnum=0;  var whichBH; var whichBHnum=0;
+    var whichAC; var whichACnum=0;  var whichCH; var whichCHnum=0;
+    var access = new Boolean(false);var accesstoquestion= new Boolean(false);
+    var count01=0;var count02=0;
+    let findisfound=0;
+    function askquestions(){
+        var result01=document.getElementById("textarea").value.replace(/\s+/g, ' ').trim();
+        var result01=result01.split("");
+        for (let z=0;z<result01.length;z++){
+            if (result01[z]=="."||result01[z]==","||result01[z]=="/"||result01[z]=="?"||
+                result01[z]=="'"||result01[z]=="|"||result01[z]=="-"||result01[z]=="_"||result01[z]=="("||
+                result01[z]==")"||result01[z]=="!"||result01[z]==";"||result01[z]==":"){
+                result01.splice(z, 1);
+            }
+        }
+        var join1=result01.join("");
+        if (join1=="сформулируй теорему косинусов"||join1=="Сформулируй теорему косинусов"||
+            join1=="теорема косинусов"||join1=="теорема косинусов"){
+            alert("Для плоского треугольника со сторонами a,b,c и углом alpha , противолежащим стороне a, справедливо соотношение:\n" +
+                "a^2 = b^2 + c^2 - b*c*cos(alpha)");
+            accesstoquestion=true;access=true;
+        }
+    }
+    function getname(result){
+        var result01=document.getElementById("textarea").value.replace(/\s+/g, ' ').trim();
+        var result01=result01.split("");
+        for (let z=0;z<result01.length;z++){
+            if (result01[z]=="."||result01[z]==","||result01[z]=="/"||result01[z]=="?"||
+                result01[z]=="'"||result01[z]=="|"||result01[z]=="-"||result01[z]=="_"||result01[z]=="("||
+                result01[z]==")"||result01[z]=="!"||result01[z]==";"||result01[z]==":"){
+                result01.splice(z, 1);
+
+            }
+        }
+        var join1=result01.join("");
+        result = join1.split(" ");
+        let mistake01="Извините, программа всё ещё находится в стадии разработки" +
+            " и она способна решать только задачи на треугольники.";
+        for (let z = 0; z < result.length; z++) {
+            if (result[z] == "в" || result[z] == "В") {
+                if (result[z + 1] == "треугольнике") {
+                    if (result[z+2]!=null) {
+                        var result1 = result[z + 2].split("");
+                    }else{result1=""}
+                    if (result1.length == 3) {
+                        whichAB = result1[0] + result1[1];
+                        whichBC = result1[1] + result1[2];
+                        whichAC = result1[0] + result1[2];
+                        access = true;
+                    } else {
+                        alert(mistake01);
+                        alert(result[z + 2] + " - неоределяемая фигура.");
+                        access = false;
+                    }
+                }
+            }
+            if (result[z] == "Треугольник" || result[z] == "треугольник") {
+                if (result[z+1]!=null) {
+                    var result1 = result[z + 1].split("");
+                }else{result1="-"}
+                if (result1.length == 3) {
+                    whichAB = result1[0] + result1[1];
+                    whichBC = result1[1] + result1[2];
+                    whichAC = result1[0] + result1[2];
+                    access = true;
+                } else {
+                    alert(mistake01);
+                    alert(result[z + 1] + " - неоределяемая фигура.");
+                    access = false;
+                }
+            }
+            if (result[z] == "дан" || result[z] == "Дан") {
+                if (result[z + 1] == "треугольник") {
+                    if (result[z+2]!=null) {
+                        var result1 = result[z + 2].split("");
+                    }else{result1="-"}
+                    if (result1.length == 3) {
+                        whichAB = result1[0] + result1[1];
+                        whichBC = result1[1] + result1[2];
+                        whichAC = result1[0] + result1[2];
+                        access = true;
+                    } else {
+                        alert(mistake01);
+                        alert(result[z + 2] + " - неоределяемая фигура.");
+                        access = false;
+                    }
+                }
+            }
+            if (result[z] == "дано" || result[z] == "Дано") {
+                if (result[z + 1] == "треугольник") {
+                    if (result[z+2]!=null) {
+                        var result1 = result[z + 2].split("");
+                    }else{result1="-"}
+                    if (result1.length == 3&&result1!="") {
+                        whichAB = result1[0] + result1[1];
+                        whichBC = result1[1] + result1[2];
+                        whichAC = result1[0] + result1[2];
+                        access = true;
+                    } else {
+                        alert(mistake01);
+                        alert(result[z + 2] + " - неоределяемая фигура.");
+                        access = false;
+                    }
+                } else if (result[z + 1] == ":") {
+                    if (result[z + 1] == "треугольник") {
+                        if (result[z+3]!=null) {
+                            var result1 = result[z + 3].split("");
+                        }else{result1="-"}
+                        if (result1.length == 3) {
+                            whichAB = result1[0] + result1[1];
+                            whichBC = result1[1] + result1[2];
+                            whichAC = result1[0] + result1[2];
+                            access = true;
+                        } else {
+                            alert(mistake01);
+                            alert(result[z + 3] + " - неоределяемая фигура.");
+                            access = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    function findgiven(result){
+        var result01=document.getElementById("textarea").value.replace(/\s+/g, ' ').trim();
+        var result01=result01.split("");
+        for (let z=0;z<result01.length;z++){
+            if (result01[z]=="."||result01[z]==","||result01[z]=="/"||result01[z]=="?"||
+                result01[z]=="'"||result01[z]=="|"||result01[z]=="-"||result01[z]=="_"||result01[z]=="("||
+                result01[z]==")"||result01[z]=="!"||result01[z]==";"||result01[z]==":"){
+                result01.splice(z, 1);
+            }
+            if (result01[z]=="="){
+                if (result01[z+1]!=" "){
+                    result01.splice(z+1, 0, " ");
+                }
+                if (result01[z-1]!=" "){
+                    result01.splice(z, 0, " ");
+                }
+            }
+
+        }
+        var join1=result01.join("");
+        result = join1.split(" ");
+
+        for (let z=0;z<result.length;z++){
+            if (result[z]==whichAB&&(result[z+1]=="="||result[z+1]=="равно"||result[z+1]=="равняется"||result[z+1]=="равна")) {
+                   if (isTrueABgiven == false&&isTrueABfind == false) {
+                           var result2 = result[z + 2].split("");
+                           if (/^[-]?\d+$/.test(result[z + 2])) {
+                               whichABnum = result[z + 2];
+                               count01++;
+                               var btn = document.getElementById("given");
+                               tr = btn;
+                               while (tr.tagName != 'TR') tr = tr.parentNode;
+                               var idSuffix = Math.round(Math.random() * 1000);
+                               var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                               thisChilds = newTr.getElementsByTagName('td');
+                               newTr.style.display = "block";
+                               newTr.querySelector('button').innerHTML = "Сторона AB";
+                               newTr.querySelector('button').id = "sideAB1";
+                               newTr.querySelector('input').id = "binAB1";
+                               newTr.querySelector('textarea').id = "textareaAB1";
+                               document.getElementById("Nav04").remove();
+                               document.getElementById("Nav14").remove();
+                               document.getElementById("Nav24").remove();
+                               document.getElementById("Nav34").remove();
+                               newTr.querySelector('textarea').innerHTML = whichABnum;
+                               isTrueABgiven = true;
+                           } else {
+                               alert(result[z + 2] + " - некорректно введён параметр.");
+                           }
+                   }
+                }
+            if (result[z]==whichBC&&(result[z+1]=="="||result[z+1]=="равно"||result[z+1]=="равняется"||result[z+1]=="равна")) {
+                if (isTrueBCgiven == false&&isTrueBCfind == false) {
+                        var result2 = result[z + 2].split("");
+                        if (/^[-]?\d+$/.test(result[z + 2])) {
+                            whichBCnum = result[z + 2];
+                            count01++;
+                            var btn = document.getElementById("given");
+                            tr = btn;
+                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                            var idSuffix = Math.round(Math.random() * 1000);
+                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                            thisChilds = newTr.getElementsByTagName('td');
+                            newTr.style.display = "block";
+                            newTr.querySelector('button').innerHTML = "Сторона BC";
+                            newTr.querySelector('button').id = "sideBC1";
+                            newTr.querySelector('input').id = "binBC1";
+                            newTr.querySelector('textarea').id = "textareaBC1";
+                            document.getElementById("Nav05").remove();
+                            document.getElementById("Nav15").remove();
+                            document.getElementById("Nav25").remove();
+                            document.getElementById("Nav35").remove();
+                            newTr.querySelector('textarea').innerHTML = whichBCnum;
+                            isTrueBCgiven = true;
+                        } else {
+                            alert(result[z + 2] + " - некорректно введён параметр.");
+                        }
+                }
+            }
+
+            if (result[z]==whichAC&&(result[z+1]=="="||result[z+1]=="равно"||result[z+1]=="равняется"||result[z+1]=="равна")) {
+                if (isTrueACgiven == false&&isTrueACfind == false) {
+                        var result2 = result[z + 2].split("");
+                        if (/^[-]?\d+$/.test(result[z + 2])) {
+                            whichACnum = result[z + 2];
+                            count01++;
+                            var btn = document.getElementById("given");
+                            tr = btn;
+                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                            var idSuffix = Math.round(Math.random() * 1000);
+                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                            thisChilds = newTr.getElementsByTagName('td');
+                            newTr.style.display = "block";
+                            newTr.querySelector('button').innerHTML = "Сторона AC";
+                            newTr.querySelector('button').id = "sideAC1";
+                            newTr.querySelector('input').id = "binAC1";
+                            newTr.querySelector('textarea').id = "textareaAC1";
+                            document.getElementById("Nav06").remove();
+                            document.getElementById("Nav16").remove();
+                            document.getElementById("Nav26").remove();
+                            document.getElementById("Nav36").remove();
+                            newTr.querySelector('textarea').innerHTML = whichACnum;
+                            isTrueACgiven = true;
+                        } else {
+                            alert(result[z + 2] + " - некорректно введён параметр.");
+                        }
+                }
+            }
+            if (result[z]=="высота"||result[z]=="высоту") {
+                if (result[z+1]=="проведённую"||result[z+1]=="проведённая") {
+                if (result[z + 2] == "из") {
+                    if (result[z + 3] == "вершины") {
+                        var result2 = result[z + 4].split("");
+                        if (result[z + 5] == "=" || result[z + 5] == "равно" || result[z + 5] == "равняется"
+                            || result[z + 5] == "равна" || result[z + 5] == "равную") {
+                            var result3 = result[z + 6].split("");
+                            if (/^[-]?\d+$/.test(result[z + 6])) {
+                                if (result2.length == 1) {
+                                    if (result2[0] == whichAB[0]) {
+                                        if (isTrueAHgiven == false && isTrueAHfind == false) {
+                                            whichAHnum = result[z + 6];
+                                            count01++;
+                                            var btn = document.getElementById("given");
+                                            tr = btn;
+                                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                                            var idSuffix = Math.round(Math.random() * 1000);
+                                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                            thisChilds = newTr.getElementsByTagName('td');
+                                            newTr.style.display = "block";
+                                            newTr.querySelector('button').innerHTML = "Высота AH<sub>1<sub>";
+                                            newTr.querySelector('button').id = "buttonAH1";
+                                            newTr.querySelector('input').id = "binAH1";
+                                            newTr.querySelector('textarea').id = "textareaAH1";
+                                            document.getElementById("Nav01").remove();
+                                            document.getElementById("Nav11").remove();
+                                            document.getElementById("Nav21").remove();
+                                            document.getElementById("Nav31").remove();
+                                            newTr.querySelector('textarea').innerHTML = whichAHnum;
+                                            isTrueAHgiven = true;
+                                        }
+                                    }
+                                    if (result2[0] == whichBC[0]) {
+                                        if (isTrueBHgiven == false && isTrueBHfind == false) {
+                                            whichBHnum = result[z + 6];
+                                            count01++;
+                                            var btn = document.getElementById("given");
+                                            tr = btn;
+                                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                                            var idSuffix = Math.round(Math.random() * 1000);
+                                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                            thisChilds = newTr.getElementsByTagName('td');
+                                            newTr.style.display = "block";
+                                            newTr.querySelector('button').innerHTML = "Высота BH<sub>2<sub>";
+                                            newTr.querySelector('button').id = "buttonBH1";
+                                            newTr.querySelector('input').id = "binBH1";
+                                            newTr.querySelector('textarea').id = "textareaBH1";
+                                            document.getElementById("Nav02").remove();
+                                            document.getElementById("Nav12").remove();
+                                            document.getElementById("Nav22").remove();
+                                            document.getElementById("Nav32").remove();
+                                            newTr.querySelector('textarea').innerHTML = whichBHnum;
+                                            isTrueBHgiven = true;
+                                        }
+                                    }
+                                    if (result2[0] == whichAC[1]) {
+                                        if (isTrueCHgiven == false && isTrueCHfind == false) {
+                                            whichCHnum = result[z + 6];
+                                            count01++;
+                                            var btn = document.getElementById("given");
+                                            tr = btn;
+                                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                                            var idSuffix = Math.round(Math.random() * 1000);
+                                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                            thisChilds = newTr.getElementsByTagName('td');
+                                            newTr.style.display = "block";
+                                            newTr.querySelector('button').innerHTML = "Высота CH<sub>3<sub>";
+                                            newTr.querySelector('button').id = "buttonCH1";
+                                            newTr.querySelector('input').id = "binCH1";
+                                            newTr.querySelector('textarea').id = "textareaCH1";
+                                            document.getElementById("Nav03").remove();
+                                            document.getElementById("Nav13").remove();
+                                            document.getElementById("Nav23").remove();
+                                            document.getElementById("Nav33").remove();
+                                            newTr.querySelector('textarea').innerHTML = whichCHnum;
+                                            isTrueCHgiven = true;
+                                        }
+                                    }
+                                }
+                            } else {
+                                alert(result[z + 6] + " - некорректно введён параметр.");
+                            }
+                        }
+                    }
+                }
+                } else if (result[z + 1] != "из") {
+                    var result2 = result[z + 1].split("");
+                    if (result2.length == 3 || result2.length == 2) {
+                        if (result[z + 4] == "=" || result[z + 4] == "равно" || result[z + 4] == "равняется"
+                            || result[z + 4] == "равна" || result[z + 4] == "равную") {
+                            var result3 = result[z + 3].split("");
+                            if (/^[-]?\d+$/.test(result[z + 3])) {
+                                if (result2.length == 2 || result2.length == 3) {
+                                    if (result2[0] == whichAB[0]) {
+                                        if (isTrueAHgiven == false && isTrueAHfind == false) {
+                                            whichAHnum = result[z + 3];
+                                            count01++;
+                                            var btn = document.getElementById("given");
+                                            tr = btn;
+                                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                                            var idSuffix = Math.round(Math.random() * 1000);
+                                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                            thisChilds = newTr.getElementsByTagName('td');
+                                            newTr.style.display = "block";
+                                            newTr.querySelector('button').innerHTML = "Высота AH<sub>1<sub>";
+                                            newTr.querySelector('button').id = "buttonAH1";
+                                            newTr.querySelector('input').id = "binAH1";
+                                            newTr.querySelector('textarea').id = "textareaAH1";
+                                            document.getElementById("Nav01").remove();
+                                            document.getElementById("Nav11").remove();
+                                            document.getElementById("Nav21").remove();
+                                            document.getElementById("Nav31").remove();
+                                            newTr.querySelector('textarea').innerHTML = whichAHnum;
+                                            isTrueAHgiven = true;
+                                        }
+                                    }
+                                    if (result2[0] == whichBC[0]) {
+                                        if (isTrueBHgiven == false && isTrueBHfind == false) {
+                                            whichBHnum = result[z + 3];
+                                            count01++;
+                                            var btn = document.getElementById("given");
+                                            tr = btn;
+                                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                                            var idSuffix = Math.round(Math.random() * 1000);
+                                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                            thisChilds = newTr.getElementsByTagName('td');
+                                            newTr.style.display = "block";
+                                            newTr.querySelector('button').innerHTML = "Высота BH<sub>2<sub>";
+                                            newTr.querySelector('button').id = "buttonBH1";
+                                            newTr.querySelector('input').id = "binBH1";
+                                            newTr.querySelector('textarea').id = "textareaBH1";
+                                            document.getElementById("Nav02").remove();
+                                            document.getElementById("Nav12").remove();
+                                            document.getElementById("Nav22").remove();
+                                            document.getElementById("Nav32").remove();
+                                            newTr.querySelector('textarea').innerHTML = whichBHnum;
+                                            isTrueBHgiven = true;
+                                        }
+                                    }
+                                    if (result2[0] == whichAC[1]) {
+                                        if (isTrueCHgiven == false && isTrueCHfind == false) {
+                                            whichCHnum = result[z + 3];
+                                            count01++;
+                                            var btn = document.getElementById("given");
+                                            tr = btn;
+                                            while (tr.tagName != 'TR') tr = tr.parentNode;
+                                            var idSuffix = Math.round(Math.random() * 1000);
+                                            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                            thisChilds = newTr.getElementsByTagName('td');
+                                            newTr.style.display = "block";
+                                            newTr.querySelector('button').innerHTML = "Высота CH<sub>3<sub>";
+                                            newTr.querySelector('button').id = "buttonCH1";
+                                            newTr.querySelector('input').id = "binCH1";
+                                            newTr.querySelector('textarea').id = "textareaCH1";
+                                            document.getElementById("Nav03").remove();
+                                            document.getElementById("Nav13").remove();
+                                            document.getElementById("Nav23").remove();
+                                            document.getElementById("Nav33").remove();
+                                            newTr.querySelector('textarea').innerHTML = whichCHnum;
+                                            isTrueCHgiven = true;
+                                        }
+                                    }
+                                }
+                            } else {
+                                alert(result[z + 3] + " - некорректно введён параметр.");
+                            }
+                        }
+                    }
+                }
+            }
+            }
+        for (let z=0;z<result.length;z++){
+            if (result[z]=="Найти"||result[z]=="Найдите"||(result[z]!="Чему"&&result[z+1]=="равна")||
+                result[z]=="найти"||result[z]=="найдите"||(result[z]!="чему"&&result[z+1]=="равна")||
+                result[z]=="Найди"||result[z]=="Найди") findisfound=1;
+            if (findisfound==1){
+                if (isTrueABfind==false&&isTrueABgiven==false) {
+                    if  (result[z]==whichAB&&!(result[z+1]=="="||result[z+1]=="равно"
+                        ||result[z+1]=="равняется"||result[z+1]=="равна"||result[z+1]=="равную")) {
+                        var btn = document.getElementById("find");
+                        tr = btn;
+                        count02++;
+                        while (tr.tagName != 'TR') tr = tr.parentNode;
+                        var idSuffix = Math.round(Math.random() * 1000);
+                        var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                        thisChilds = newTr.getElementsByTagName('td');
+                        newTr.style.display = "block";
+                        newTr.querySelector('button').innerHTML = "Сторона AB";
+                        newTr.querySelector('button').id = "sideAB2";
+                        newTr.querySelector('input').id = "binAB2";
+                        newTr.querySelector('label').id = "labelAB2";
+                        document.getElementById("Nav04").remove();
+                        document.getElementById("Nav14").remove();
+                        document.getElementById("Nav24").remove();
+                        document.getElementById("Nav34").remove();
+                        isTrueABfind = true;
+                    }
+                }
+                if (isTrueBCfind==false&&isTrueBCgiven==false) {
+                    if  (result[z]==whichBC&&!(result[z+1]=="="||result[z+1]=="равно"
+                        ||result[z+1]=="равняется"||result[z+1]=="равна"||result[z+1]=="равную")) {
+                        var btn = document.getElementById("find");
+                        tr = btn;
+                        count02++;
+                        while (tr.tagName != 'TR') tr = tr.parentNode;
+                        var idSuffix = Math.round(Math.random() * 1000);
+                        var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                        thisChilds = newTr.getElementsByTagName('td');
+                        newTr.style.display = "block";
+                        newTr.querySelector('button').innerHTML = "Сторона BC";
+                        newTr.querySelector('button').id = "sideBC2";
+                        newTr.querySelector('input').id = "binBC2";
+                        newTr.querySelector('label').id = "labelBC2";
+                        document.getElementById("Nav05").remove();
+                        document.getElementById("Nav15").remove();
+                        document.getElementById("Nav25").remove();
+                        document.getElementById("Nav35").remove();
+                        isTrueBCfind = true;
+                    }
+                }
+                if (isTrueACfind==false&&isTrueACgiven==false) {
+                    if  (result[z]==whichAC&&!(result[z+1]=="="||result[z+1]=="равно"||
+                        result[z+1]=="равняется"||result[z+1]=="равна")||result[z+1]=="равную") {
+                        var btn = document.getElementById("find");
+                        tr = btn;
+                        count02++;
+                        while (tr.tagName != 'TR') tr = tr.parentNode;
+                        var idSuffix = Math.round(Math.random() * 1000);
+                        var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                        thisChilds = newTr.getElementsByTagName('td');
+                        newTr.style.display = "block";
+                        newTr.querySelector('button').innerHTML = "Сторона AC";
+                        newTr.querySelector('button').id = "sideAC2";
+                        newTr.querySelector('input').id = "binAC2";
+                        newTr.querySelector('label').id = "labelAC2";
+                        document.getElementById("Nav06").remove();
+                        document.getElementById("Nav16").remove();
+                        document.getElementById("Nav26").remove();
+                        document.getElementById("Nav36").remove();
+                        isTrueACfind = true;
+                    }
+                }
+                if (result[z]=="высоту"||result[z]=="высота") {
+                    if (result[z+1]=="проведённая"||result[z+1]=="проведённую") {
+                        if (result[z + 2] == "из") {
+                            if (result[z + 3] == "вершины") {
+                                var result2 = result[z + 4].split("");
+                                if (!(result[z + 5] == "=" || result[z + 5] == "равно" || result[z + 5] == "равняется"
+                                    || result[z + 5] == "равна" || result[z + 5] == "равную")) {
+                                    if (result2.length == 1) {
+                                        if (result2[0] == whichAB[0]) {
+                                            if (isTrueAHgiven == false && isTrueAHfind == false) {
+                                                var btn = document.getElementById("find");
+                                                tr = btn;
+                                                count02++;
+                                                while (tr.tagName != 'TR') tr = tr.parentNode;
+                                                var idSuffix = Math.round(Math.random() * 1000);
+                                                var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                                thisChilds = newTr.getElementsByTagName('td');
+                                                newTr.style.display = "block";
+                                                newTr.querySelector('button').innerHTML = "Высота AH<sub>1<sub>";
+                                                newTr.querySelector('button').id = "buttonAH2";
+                                                newTr.querySelector('input').id = "binAH2";
+                                                newTr.querySelector('label').id = "labelAH2";
+                                                document.getElementById("Nav01").remove();
+                                                document.getElementById("Nav11").remove();
+                                                document.getElementById("Nav21").remove();
+                                                document.getElementById("Nav31").remove();
+                                                isTrueAHfind = true;
+                                            }
+                                        }
+                                        if (result2[0] == whichBC[0]) {
+                                            if (isTrueBHgiven == false && isTrueBHfind == false) {
+                                                var btn = document.getElementById("find");
+                                                tr = btn;
+                                                count02++;
+                                                while (tr.tagName != 'TR') tr = tr.parentNode;
+                                                var idSuffix = Math.round(Math.random() * 1000);
+                                                var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                                thisChilds = newTr.getElementsByTagName('td');
+                                                newTr.style.display = "block";
+                                                newTr.querySelector('button').innerHTML = "Высота BH<sub>2<sub>";
+                                                newTr.querySelector('button').id = "buttonBH2";
+                                                newTr.querySelector('input').id = "binBH2";
+                                                newTr.querySelector('label').id = "labelBH2";
+                                                document.getElementById("Nav02").remove();
+                                                document.getElementById("Nav12").remove();
+                                                document.getElementById("Nav22").remove();
+                                                document.getElementById("Nav32").remove();
+                                                isTrueBHfind = true;
+                                            }
+                                        }
+                                        if (result2[0] == whichAC[1]) {
+                                            if (isTrueCHgiven == false && isTrueCHfind == false) {
+                                                var btn = document.getElementById("find");
+                                                tr = btn;
+                                                count02++;
+                                                while (tr.tagName != 'TR') tr = tr.parentNode;
+                                                var idSuffix = Math.round(Math.random() * 1000);
+                                                var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                                thisChilds = newTr.getElementsByTagName('td');
+                                                newTr.style.display = "block";
+                                                newTr.querySelector('button').innerHTML = "Высота CH<sub>3<sub>";
+                                                newTr.querySelector('button').id = "buttonCH2";
+                                                newTr.querySelector('input').id = "binCH2";
+                                                newTr.querySelector('label').id = "labelCH2";
+                                                document.getElementById("Nav03").remove();
+                                                document.getElementById("Nav13").remove();
+                                                document.getElementById("Nav23").remove();
+                                                document.getElementById("Nav33").remove();
+                                                isTrueCHfind = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        } else if (result[z + 1] != "из") {
+                            var result2 = result[z + 1].split("");
+                            if (result2.length == 3 || result2.length == 2) {
+                                if (!(result[z + 2] == "=" || result[z + 2] == "равно" || result[z + 2] == "равняется"
+                                    || result[z + 2] == "равна" || result[z + 2] == "равную")) {
+                                    if (result2.length == 2 || result2.length == 3) {
+                                        if (result2[0] == whichAB[0]) {
+                                            if (isTrueAHgiven == false && isTrueAHfind == false) {
+                                                var btn = document.getElementById("find");
+                                                tr = btn;
+                                                count02++;
+                                                while (tr.tagName != 'TR') tr = tr.parentNode;
+                                                var idSuffix = Math.round(Math.random() * 1000);
+                                                var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                                thisChilds = newTr.getElementsByTagName('td');
+                                                newTr.style.display = "block";
+                                                newTr.querySelector('button').innerHTML = "Высота AH<sub>1<sub>";
+                                                newTr.querySelector('button').id = "buttonAH2";
+                                                newTr.querySelector('input').id = "binAH2";
+                                                newTr.querySelector('label').id = "labelAH2";
+                                                document.getElementById("Nav01").remove();
+                                                document.getElementById("Nav11").remove();
+                                                document.getElementById("Nav21").remove();
+                                                document.getElementById("Nav31").remove();
+                                                isTrueAHfind = true;
+                                            }
+                                        }
+                                        if (result2[0] == whichBC[0]) {
+                                            if (isTrueBHgiven == false && isTrueBHfind == false) {
+                                                var btn = document.getElementById("find");
+                                                tr = btn;
+                                                count02++;
+                                                while (tr.tagName != 'TR') tr = tr.parentNode;
+                                                var idSuffix = Math.round(Math.random() * 1000);
+                                                var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                                thisChilds = newTr.getElementsByTagName('td');
+                                                newTr.style.display = "block";
+                                                newTr.querySelector('button').innerHTML = "Высота BH<sub>2<sub>";
+                                                newTr.querySelector('button').id = "buttonBH2";
+                                                newTr.querySelector('input').id = "binBH2";
+                                                newTr.querySelector('label').id = "labelBH2";
+                                                document.getElementById("Nav02").remove();
+                                                document.getElementById("Nav12").remove();
+                                                document.getElementById("Nav22").remove();
+                                                document.getElementById("Nav32").remove();
+                                                isTrueBHfind = true;
+                                            }
+                                        }
+                                        if (result2[0] == whichAC[1]) {
+                                            if (isTrueCHgiven == false && isTrueCHfind == false) {
+                                                var btn = document.getElementById("find");
+                                                tr = btn;
+                                                count02++;
+                                                while (tr.tagName != 'TR') tr = tr.parentNode;
+                                                var idSuffix = Math.round(Math.random() * 1000);
+                                                var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+                                                thisChilds = newTr.getElementsByTagName('td');
+                                                newTr.style.display = "block";
+                                                newTr.querySelector('button').innerHTML = "Высота CH<sub>3<sub>";
+                                                newTr.querySelector('button').id = "buttonCH2";
+                                                newTr.querySelector('input').id = "binCH2";
+                                                newTr.querySelector('label').id = "labelCH2";
+                                                document.getElementById("Nav03").remove();
+                                                document.getElementById("Nav13").remove();
+                                                document.getElementById("Nav23").remove();
+                                                document.getElementById("Nav33").remove();
+                                                isTrueCHfind = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
+        }
+        if (count01==0&&count02!=0){
+            alert("Извените, мы не смогли обнаружить новых параметров 'дано'. ")
+        }if (count01==0&&count02==0){
+            alert("Извените, мы не смогли обнаружить новых данных к задаче. ")
+        }
+        count01=0;count02=0;
+    }
+    function getit() {
+            var stringToSplit=document.getElementById("textarea").value;
+            var result = stringToSplit.split(" ");
+            getname(result);
+            askquestions();
+            if (access==true) {
+                if (accesstoquestion == false) {
+                        findgiven(result);
+                }else{
+                    accesstoquestion=false;access=false;
+                }
+            }else{
+                alert("Access: denied.");
+            }
+
+    }
+
+
+    var textarea = document.querySelector('textarea');
+    textarea.addEventListener('keydown', autosize);
+    textarea.addEventListener('keydown', openB);
+    function autosize(){
+        var el = this;
+        setTimeout(function(){
+            el.style.cssText = 'height:23; padding:0';
+            el.style.cssText = 'height:' + el.scrollHeight + 'px';
+        },0);
+    }
+    function openB(){
+        if (event.key == 'Enter')getit();
+    }
+    function tell(){
+        alert("Извините, программа всё ещё находится в стадии разработки...");
+    }
+</script>
+<script>
+    function droptr(btn){
+    if(document.getElementById) {
+        tr = btn;
+        while (tr.tagName != 'TR') tr = tr.parentNode;
+        tr.parentNode.removeChild(tr);
+    }
+}
+
+function repare(obj){
+        var id =obj.id;
+    if (id=="binAH1"||id=="binAH2"){
+            var btn1 = document.getElementById("oncopy3");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота AH<sub>1</sub>";
+            newTr.querySelector('a').id = "Nav31";
+            var btn1 = document.getElementById("oncopy2");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота AH<sub>1</sub>";
+            newTr.querySelector('a').id = "Nav21";
+            var btn1 = document.getElementById("oncopy1");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота AH<sub>1</sub>";
+            newTr.querySelector('a').id = "Nav11";
+            var btn1 = document.getElementById("oncopy0");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота AH<sub>1</sub>";
+            newTr.querySelector('a').id = "Nav01";
+            isTrueAHgiven=false; isTrueAHfind=false;
+    }else if (id=="binBH1"||id=="binBH2"){
+            var btn1 = document.getElementById("oncopy3");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота BH<sub>2</sub>";
+            newTr.querySelector('a').id = "Nav32";
+            var btn1 = document.getElementById("oncopy2");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота BH<sub>2</sub>";
+            newTr.querySelector('a').id = "Nav22";
+            var btn1 = document.getElementById("oncopy1");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота BH<sub>2</sub>";
+            newTr.querySelector('a').id = "Nav12";
+            var btn1 = document.getElementById("oncopy0");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота BH<sub>2</sub>";
+            newTr.querySelector('a').id = "Nav02";
+        isTrueBHgiven=false; isTrueBHfind=false;
+    }else if (id=="binCH1"||id=="binCH2"){
+            var btn1 = document.getElementById("oncopy3");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота CH<sub>3</sub>";
+            newTr.querySelector('a').id = "Nav33";
+            var btn1 = document.getElementById("oncopy2");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота CH<sub>3</sub>";
+            newTr.querySelector('a').id = "Nav23";
+            var btn1 = document.getElementById("oncopy1");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота CH<sub>3</sub>";
+            newTr.querySelector('a').id = "Nav13";
+            var btn1 = document.getElementById("oncopy0");
+            var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+            newTr.style.display = "block";
+            newTr.querySelector('a').innerHTML = "Высота CH<sub>3</sub>";
+            newTr.querySelector('a').id = "Nav03";
+        isTrueCHgiven=false; isTrueCHfind=false;
+    }
+    else if (id=="binAB1"||id=="binAB2"){
+        var btn1 = document.getElementById("oncopy3");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AB";
+        newTr.querySelector('a').id = "Nav34";
+        var btn1 = document.getElementById("oncopy2");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AB";
+        newTr.querySelector('a').id = "Nav24";
+        var btn1 = document.getElementById("oncopy1");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AB";
+        newTr.querySelector('a').id = "Nav14";
+        var btn1 = document.getElementById("oncopy0");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AB";
+        newTr.querySelector('a').id = "Nav04";
+        isTrueABgiven=false; isTrueABfind=false;
+    }else if (id=="binBC1"||id=="binBC2"){
+        var btn1 = document.getElementById("oncopy3");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона BC";
+        newTr.querySelector('a').id = "Nav35";
+        var btn1 = document.getElementById("oncopy2");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона BC";
+        newTr.querySelector('a').id = "Nav25";
+        var btn1 = document.getElementById("oncopy1");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона BC";
+        newTr.querySelector('a').id = "Nav15";
+        var btn1 = document.getElementById("oncopy0");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона BC";
+        newTr.querySelector('a').id = "Nav05";
+        isTrueBCgiven=false; isTrueBCfind=false;
+    }else if (id=="binAC1"||id=="binAC2"){
+        var btn1 = document.getElementById("oncopy3");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AC";
+        newTr.querySelector('a').id = "Nav36";
+        var btn1 = document.getElementById("oncopy2");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AC";
+        newTr.querySelector('a').id = "Nav26";
+        var btn1 = document.getElementById("oncopy1");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AC";
+        newTr.querySelector('a').id = "Nav16";
+        var btn1 = document.getElementById("oncopy0");
+        var newTr = btn1.parentNode.insertBefore(btn1.cloneNode(true), btn1.nextSibling);
+        newTr.style.display = "block";
+        newTr.querySelector('a').innerHTML = "Сторона AC";
+        newTr.querySelector('a').id = "Nav06";
+        isTrueACgiven=false; isTrueACfind=false;
+    }
+}
+    document.querySelector('#myNav2').addEventListener('click', function(e) {
+        document.getElementById("myNav2").style.width = "0%";
+        var btn =document.getElementById("given");
+        var id = e.target.id;
+        if (id == "Nav21") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random()*1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true),tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Высота AH<sub>1</sub>";
+            newTr.querySelector('button').id = "buttonAH1";
+            newTr.querySelector('input').id = "binAH1";
+            newTr.querySelector('textarea').id = "textareaAH1";
+            document.getElementById("Nav01").remove();
+            document.getElementById("Nav11").remove();
+            document.getElementById("Nav21").remove();
+            document.getElementById("Nav31").remove();
+            isTrueAHgiven=true;
+        }else if (id == "Nav22") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random()*1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true),tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Высота BH<sub>2</sub>";
+            newTr.querySelector('button').id = "buttonBH1";
+            newTr.querySelector('input').id = "binBH1";
+            newTr.querySelector('textarea').id = "textareaBH1";
+            document.getElementById("Nav02").remove();
+            document.getElementById("Nav12").remove();
+            document.getElementById("Nav22").remove();
+            document.getElementById("Nav32").remove();
+            isTrueBHgiven=true;
+        }
+        else if (id == "Nav23") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random()*1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true),tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Высота CH<sub>3</sub>";
+            newTr.querySelector('button').id = "buttonCH1";
+            newTr.querySelector('input').id = "binCH1";
+            newTr.querySelector('textarea').id = "textareaCH1";
+            document.getElementById("Nav03").remove();
+            document.getElementById("Nav13").remove();
+            document.getElementById("Nav23").remove();
+            document.getElementById("Nav33").remove();
+            isTrueCHgiven=true;
+        }
+        else if (id == "Nav24") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random()*1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true),tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Сторона AB";
+            newTr.querySelector('button').id = "sideAB1";
+            newTr.querySelector('input').id = "binAB1";
+            newTr.querySelector('textarea').id = "textareaAB1";
+            document.getElementById("Nav04").remove();
+            document.getElementById("Nav14").remove();
+            document.getElementById("Nav24").remove();
+            document.getElementById("Nav34").remove();
+            isTrueABgiven=true;
+        }else if (id == "Nav25") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random()*1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true),tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Сторона BC";
+            newTr.querySelector('button').id = "sideBC1";
+            newTr.querySelector('input').id = "binBC1";
+            newTr.querySelector('textarea').id = "textareaBC1";
+            document.getElementById("Nav05").remove();
+            document.getElementById("Nav15").remove();
+            document.getElementById("Nav25").remove();
+            document.getElementById("Nav35").remove();
+            isTrueBCgiven=true;
+        }
+        else if (id == "Nav26") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random()*1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true),tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Сторона AC";
+            newTr.querySelector('button').id = "sideAC1";
+            newTr.querySelector('input').id = "binAC1";
+            newTr.querySelector('textarea').id = "textareaAC1";
+            document.getElementById("Nav06").remove();
+            document.getElementById("Nav16").remove();
+            document.getElementById("Nav26").remove();
+            document.getElementById("Nav36").remove();
+            isTrueACgiven=true;
+        }
+    });
+
+    document.querySelector('#myNav3').addEventListener('click', function(e) {
+        document.getElementById("myNav3").style.width = "0%";
+        var btn = document.getElementById("find");
+        var id = e.target.id;
+        if (id == "Nav31") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random() * 1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Высота AH<sub>1</sub>";
+            newTr.querySelector('button').id = "buttonAH2";
+            newTr.querySelector('input').id = "binAH2";
+            newTr.querySelector('label').id = "labelAH2";
+            document.getElementById("Nav01").remove();
+            document.getElementById("Nav11").remove();
+            document.getElementById("Nav21").remove();
+            document.getElementById("Nav31").remove();
+            isTrueAHfind=true;
+        }else if (id == "Nav32") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random() * 1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Высота BH<sub>2</sub>";
+            newTr.querySelector('button').id = "buttonBH2";
+            newTr.querySelector('input').id = "binBH2";
+            newTr.querySelector('label').id = "labelBH2";
+            document.getElementById("Nav02").remove();
+            document.getElementById("Nav12").remove();
+            document.getElementById("Nav22").remove();
+            document.getElementById("Nav32").remove();
+            isTrueBHfind=true;
+        }else if (id == "Nav33") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random() * 1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Высота CH<sub>3</sub>";
+            newTr.querySelector('button').id = "buttonCH2";
+            newTr.querySelector('input').id = "binCH2";
+            newTr.querySelector('label').id = "labelCH2";
+            document.getElementById("Nav03").remove();
+            document.getElementById("Nav13").remove();
+            document.getElementById("Nav23").remove();
+            document.getElementById("Nav33").remove();
+            isTrueCHfind=true;
+        }
+        else if (id == "Nav34") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random() * 1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Сторона AB";
+            newTr.querySelector('button').id = "sideAB2";
+            newTr.querySelector('input').id = "binAB2";
+            newTr.querySelector('label').id = "labelAB2";
+            document.getElementById("Nav04").remove();
+            document.getElementById("Nav14").remove();
+            document.getElementById("Nav24").remove();
+            document.getElementById("Nav34").remove();
+            isTrueABfind=true;
+        }else if (id == "Nav35") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random() * 1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Сторона BC";
+            newTr.querySelector('button').id = "sideBC2";
+            newTr.querySelector('input').id = "binBC2";
+            newTr.querySelector('label').id = "labelBC2";
+            document.getElementById("Nav05").remove();
+            document.getElementById("Nav15").remove();
+            document.getElementById("Nav25").remove();
+            document.getElementById("Nav35").remove();
+            isTrueBCfind=true;
+        }else if (id == "Nav36") {
+            tr = btn;
+            while (tr.tagName != 'TR') tr = tr.parentNode;
+            var idSuffix = Math.round(Math.random() * 1000);
+            var newTr = tr.parentNode.insertBefore(tr.cloneNode(true), tr.nextSibling);
+            thisChilds = newTr.getElementsByTagName('td');
+            newTr.style.display = "block";
+            newTr.querySelector('button').innerHTML = "Сторона AC";
+            newTr.querySelector('button').id = "sideAC2";
+            newTr.querySelector('input').id = "binAC2";
+            newTr.querySelector('label').id = "labelAC2";
+            document.getElementById("Nav06").remove();
+            document.getElementById("Nav16").remove();
+            document.getElementById("Nav26").remove();
+            document.getElementById("Nav36").remove();
+            isTrueACfind=true;
+        }
+    });
+
+</script>
+<script>
+    var idfound;
+    var btnfound;
+    function findbtn(btn){
+        btnfound=btn;
+    }
+    function find(obj){
+         idfound= obj.id;
+    }
+    function getid0(obj){
+        if (obj=="buttonAH1"||obj=="buttonAH2"){
+            return "Nav01";
+            isTrueAHfind=false; isTrueAHgiven=false;
+        } else if (obj=="buttonBH1"||obj=="buttonBH2"){
+            return "Nav02";
+            isTrueBHfind=false; isTrueBHgiven=false;
+        } else if (obj=="buttonCH1"||obj=="buttonCH2"){
+            return "Nav03";
+            isTrueCHfind=false; isTrueCHgiven=false;
+        } else if (obj=="sideAB1"||obj=="sideAB2"){
+            return "Nav04";
+            isTrueABfind=false; isTrueABgiven=false;
+        } else if (obj=="sideBC1"||obj=="sideBC2"){
+            return "Nav05";
+            isTrueBCfind=false; isTrueBCgiven=false;
+        } else if (obj=="sideAC1"||obj=="sideAC2"){
+            return "Nav06";
+            isTrueACfind=false; isTrueACgiven=false;
+        }
+    }
+    function getid1(obj){
+        if (obj=="buttonAH1"||obj=="buttonAH2"){
+            return "Nav11";
+            isTrueAHfind=false; isTrueAHgiven=false;
+        }
+        else if (obj=="buttonBH1"||obj=="buttonBH2"){
+            return "Nav12";
+            isTrueBHfind=false; isTrueBHgiven=false;
+        } else if (obj=="buttonCH1"||obj=="buttonCH2"){
+            return "Nav13";
+            isTrueCHfind=false; isTrueCHgiven=false;
+        }else if (obj=="sideAB1"||obj=="sideAB2"){
+            return "Nav14";
+            isTrueABfind=false; isTrueABgiven=false;
+        } else if (obj=="sideBC1"||obj=="sideBC2"){
+            return "Nav15";
+            isTrueBCfind=false; isTrueBCgiven=false;
+        } else if (obj=="sideAC1"||obj=="sideAC2"){
+            return "Nav16";
+            isTrueACfind=false; isTrueACgiven=false;
+        }
+    }
+    function getid2(obj){
+        if (obj=="buttonAH1"||obj=="buttonAH2"){
+            return "Nav21";
+            isTrueAHfind=false; isTrueAHgiven=false;
+        }
+        else if (obj=="buttonBH1"||obj=="buttonBH2"){
+            return "Nav22";
+            isTrueBHfind=false; isTrueBHgiven=false;
+        } else if (obj=="buttonCH1"||obj=="buttonCH2"){
+            return "Nav23";
+            isTrueCHfind=false; isTrueCHgiven=false;
+        }else if (obj=="sideAB1"||obj=="sideAB2"){
+            return "Nav24";
+            isTrueABfind=false; isTrueABgiven=false;
+        } else if (obj=="sideBC1"||obj=="sideBC2"){
+            return "Nav25";
+            isTrueBCfind=false; isTrueBCgiven=false;
+        } else if (obj=="sideAC1"||obj=="sideAC2"){
+            return "Nav26";
+            isTrueACfind=false; isTrueACgiven=false;
+        }
+    }
+    function getid3(obj){
+        if (obj=="buttonAH1"||obj=="buttonAH2"){
+            return "Nav31";
+            isTrueAHfind=false; isTrueAHgiven=false;
+        }
+        else if (obj=="buttonBH1"||obj=="buttonBH2"){
+            return "Nav32";
+            isTrueBHfind=false; isTrueBHgiven=false;
+        } else if (obj=="buttonCH1"||obj=="buttonCH2"){
+            return "Nav33";
+            isTrueCHfind=false; isTrueCHgiven=false;
+        }else if (obj=="sideAB1"||obj=="sideAB2"){
+            return "Nav34";
+            isTrueABfind=false; isTrueABgiven=false;
+        } else if (obj=="sideBC1"||obj=="sideBC2"){
+            return "Nav35";
+            isTrueBCfind=false; isTrueBCgiven=false;
+        } else if (obj=="sideAC1"||obj=="sideAC2"){
+            return "Nav36";
+            isTrueACfind=false; isTrueACgiven=false;
+        }
+    }
+    var name="ABC";
+
+        document.querySelector('#myNav').addEventListener('click', function(e) {
+            document.getElementById("myNav").style.width = "0%";
+            var id = e.target.id;
+            tr=btnfound;
+            if (id == "Nav01") {
+                document.getElementById("Nav01").innerHTML=tr.innerHTML;
+                document.getElementById("Nav01").id=getid0(idfound);
+                document.getElementById("Nav11").innerHTML=tr.innerHTML;
+                document.getElementById("Nav11").id=getid1(idfound);
+                document.getElementById("Nav21").innerHTML=tr.innerHTML;
+                document.getElementById("Nav21").id=getid2(idfound);
+                document.getElementById("Nav31").innerHTML=tr.innerHTML;
+                document.getElementById("Nav31").id=getid3(idfound);
+                var all = tr.parentNode.querySelector('button').innerHTML = "Высота AH<sub>1</sub>";
+                tr.parentNode.querySelector('button').id = "buttonAH1";
+                tr.parentNode.querySelector('textarea').id = "textareaAH1";
+                tr.parentNode.querySelector('input').id = "binAH1";
+                isTrueAHgiven=true;
+            }else if (id == "Nav02") {
+                document.getElementById("Nav02").innerHTML=tr.innerHTML;
+                document.getElementById("Nav02").id=getid0(idfound);
+                document.getElementById("Nav12").innerHTML=tr.innerHTML;
+                document.getElementById("Nav12").id=getid1(idfound);
+                document.getElementById("Nav22").innerHTML=tr.innerHTML;
+                document.getElementById("Nav22").id=getid2(idfound);
+                document.getElementById("Nav32").innerHTML=tr.innerHTML;
+                document.getElementById("Nav32").id=getid3(idfound);
+                var all = tr.parentNode.querySelector('button').innerHTML = "Высота BH<sub>2</sub>";
+                tr.parentNode.querySelector('button').id = "buttonBH1";
+                tr.parentNode.querySelector('textarea').id = "textareaBH1";
+                tr.parentNode.querySelector('input').id = "binBH1";
+                isTrueBHgiven=true;
+            }else if (id == "Nav03") {
+                document.getElementById("Nav03").innerHTML=tr.innerHTML;
+                document.getElementById("Nav03").id=getid0(idfound);
+                document.getElementById("Nav13").innerHTML=tr.innerHTML;
+                document.getElementById("Nav13").id=getid1(idfound);
+                document.getElementById("Nav23").innerHTML=tr.innerHTML;
+                document.getElementById("Nav23").id=getid2(idfound);
+                document.getElementById("Nav33").innerHTML=tr.innerHTML;
+                document.getElementById("Nav33").id=getid3(idfound);
+                var all = tr.parentNode.querySelector('button').innerHTML = "Высота CH<sub>3</sub>";
+                tr.parentNode.querySelector('button').id = "buttonCH1";
+                tr.parentNode.querySelector('textarea').id = "textareaCH1";
+                tr.parentNode.querySelector('input').id = "binCH1";
+                isTrueCHgiven=true;
+            } else if (id == "Nav04") {
+                document.getElementById("Nav04").innerHTML=tr.innerHTML;
+                document.getElementById("Nav04").id=getid0(idfound);
+                document.getElementById("Nav14").innerHTML=tr.innerHTML;
+                document.getElementById("Nav14").id=getid1(idfound);
+                document.getElementById("Nav24").innerHTML=tr.innerHTML;
+                document.getElementById("Nav24").id=getid2(idfound);
+                document.getElementById("Nav34").innerHTML=tr.innerHTML;
+                document.getElementById("Nav34").id=getid3(idfound);
+                var all = tr.parentNode.querySelector('button').innerHTML = "Сторона AB";
+                tr.parentNode.querySelector('button').id = "sideAB1";
+                tr.parentNode.querySelector('textarea').id = "textareaAB1";
+                tr.parentNode.querySelector('input').id = "binAB1";
+                isTrueABgiven=true;
+            }else if (id == "Nav05") {
+                document.getElementById("Nav05").innerHTML=tr.innerHTML;
+                document.getElementById("Nav05").id=getid0(idfound);
+                document.getElementById("Nav15").innerHTML=tr.innerHTML;
+                document.getElementById("Nav15").id=getid1(idfound);
+                document.getElementById("Nav25").innerHTML=tr.innerHTML;
+                document.getElementById("Nav25").id=getid2(idfound);
+                document.getElementById("Nav35").innerHTML=tr.innerHTML;
+                document.getElementById("Nav35").id=getid3(idfound);
+                var all = tr.parentNode.querySelector('button').innerHTML = "Сторона BC";
+                tr.parentNode.querySelector('button').id = "sideBC1";
+                tr.parentNode.querySelector('textarea').id = "textareaBC1";
+                tr.parentNode.querySelector('input').id = "binBC1";
+                isTrueBCgiven=true;
+            }else if (id == "Nav06") {
+                document.getElementById("Nav06").innerHTML=tr.innerHTML;
+                document.getElementById("Nav06").id=getid0(idfound);
+                document.getElementById("Nav16").innerHTML=tr.innerHTML;
+                document.getElementById("Nav16").id=getid1(idfound);
+                document.getElementById("Nav26").innerHTML=tr.innerHTML;
+                document.getElementById("Nav26").id=getid2(idfound);
+                document.getElementById("Nav36").innerHTML=tr.innerHTML;
+                document.getElementById("Nav36").id=getid3(idfound);
+                var all = tr.parentNode.querySelector('button').innerHTML = "Сторона AC";
+                tr.parentNode.querySelector('button').id = "sideAC1";
+                tr.parentNode.querySelector('textarea').id = "textareaAC1";
+                tr.parentNode.querySelector('input').id = "binAC1";
+                isTrueACgiven=true;
+            }
+        });
+    document.querySelector('#myNav1').addEventListener('click', function(e) {
+        document.getElementById("myNav1").style.width = "0%";
+        var id = e.target.id;
+        tr=btnfound;
+        if (id == "Nav11") {
+            document.getElementById("Nav01").innerHTML=tr.innerHTML;
+            document.getElementById("Nav01").id=getid0(idfound);
+            document.getElementById("Nav11").innerHTML=tr.innerHTML;
+            document.getElementById("Nav11").id=getid1(idfound);
+            document.getElementById("Nav21").innerHTML=tr.innerHTML;
+            document.getElementById("Nav21").id=getid2(idfound);
+            document.getElementById("Nav31").innerHTML=tr.innerHTML;
+            document.getElementById("Nav31").id=getid3(idfound);
+            var all = tr.parentNode.querySelector('button').innerHTML = "Высота AH<sub>1</sub>";
+            tr.parentNode.querySelector('button').id = "buttonAH2";
+            tr.parentNode.querySelector('textarea').id = "textareaAH2";
+            tr.parentNode.querySelector('input').id = "binAH2";
+            isTrueAHfind=true;
+        }else if (id == "Nav12") {
+            document.getElementById("Nav02").innerHTML=tr.innerHTML;
+            document.getElementById("Nav02").id=getid0(idfound);
+            document.getElementById("Nav12").innerHTML=tr.innerHTML;
+            document.getElementById("Nav12").id=getid1(idfound);
+            document.getElementById("Nav22").innerHTML=tr.innerHTML;
+            document.getElementById("Nav22").id=getid2(idfound);
+            document.getElementById("Nav32").innerHTML=tr.innerHTML;
+            document.getElementById("Nav32").id=getid3(idfound);
+            var all = tr.parentNode.querySelector('button').innerHTML = "Высота BH<sub>2</sub>";
+            tr.parentNode.querySelector('button').id = "buttonBH2";
+            tr.parentNode.querySelector('textarea').id = "textareaBH2";
+            tr.parentNode.querySelector('input').id = "binBH2";
+            isTrueBHfind=true;
+        }else if (id == "Nav13") {
+            document.getElementById("Nav03").innerHTML=tr.innerHTML;
+            document.getElementById("Nav03").id=getid0(idfound);
+            document.getElementById("Nav13").innerHTML=tr.innerHTML;
+            document.getElementById("Nav13").id=getid1(idfound);
+            document.getElementById("Nav23").innerHTML=tr.innerHTML;
+            document.getElementById("Nav23").id=getid2(idfound);
+            document.getElementById("Nav33").innerHTML=tr.innerHTML;
+            document.getElementById("Nav33").id=getid3(idfound);
+            var all = tr.parentNode.querySelector('button').innerHTML = "Высота CH<sub>3</sub>";
+            tr.parentNode.querySelector('button').id = "buttonCH2";
+            tr.parentNode.querySelector('textarea').id = "textareaCH2";
+            tr.parentNode.querySelector('input').id = "binCH2";
+            isTrueCHfind=true;
+        }else if (id == "Nav14") {
+            document.getElementById("Nav04").innerHTML=tr.innerHTML;
+            document.getElementById("Nav04").id=getid0(idfound);
+            document.getElementById("Nav14").innerHTML=tr.innerHTML;
+            document.getElementById("Nav14").id=getid1(idfound);
+            document.getElementById("Nav24").innerHTML=tr.innerHTML;
+            document.getElementById("Nav24").id=getid2(idfound);
+            document.getElementById("Nav34").innerHTML=tr.innerHTML;
+            document.getElementById("Nav34").id=getid3(idfound);
+            var all = tr.parentNode.querySelector('button').innerHTML = "Сторона AB";
+            tr.parentNode.querySelector('button').id = "sideAB2";
+            tr.parentNode.querySelector('textarea').id = "textareaAB2";
+            tr.parentNode.querySelector('input').id = "binAB2";
+            isTrueABfind=true;
+        }else if (id == "Nav15") {
+            document.getElementById("Nav05").innerHTML=tr.innerHTML;
+            document.getElementById("Nav05").id=getid0(idfound);
+            document.getElementById("Nav15").innerHTML=tr.innerHTML;
+            document.getElementById("Nav15").id=getid1(idfound);
+            document.getElementById("Nav25").innerHTML=tr.innerHTML;
+            document.getElementById("Nav25").id=getid2(idfound);
+            document.getElementById("Nav35").innerHTML=tr.innerHTML;
+            document.getElementById("Nav35").id=getid3(idfound);
+            var all = tr.parentNode.querySelector('button').innerHTML = "Сторона BC";
+            tr.parentNode.querySelector('button').id = "sideBC2";
+            tr.parentNode.querySelector('textarea').id = "textareaBC2";
+            tr.parentNode.querySelector('input').id = "binBC2";
+            isTrueBCfind=true;
+        }else if (id == "Nav16") {
+            document.getElementById("Nav06").innerHTML=tr.innerHTML;
+            document.getElementById("Nav06").id=getid0(idfound);
+            document.getElementById("Nav16").innerHTML=tr.innerHTML;
+            document.getElementById("Nav16").id=getid1(idfound);
+            document.getElementById("Nav26").innerHTML=tr.innerHTML;
+            document.getElementById("Nav26").id=getid2(idfound);
+            document.getElementById("Nav36").innerHTML=tr.innerHTML;
+            document.getElementById("Nav36").id=getid3(idfound);
+            var all = tr.parentNode.querySelector('button').innerHTML = "Сторона AC";
+            tr.parentNode.querySelector('button').id = "sideAC2";
+            tr.parentNode.querySelector('textarea').id = "textareaAC2";
+            tr.parentNode.querySelector('input').id = "binAC2";
+            isTrueACfind=true;
+        }
+    });
+
+    var change01=0;var change02=0;var change03=0;
+    var change04=0;var change05=0;var change06=0;
+    function getinformation(){
+        let letin=1;
+        if (isTrueABgiven==true){
+            whichABnum=document.getElementById("textareaAB1").value;
+            if (whichABnum==""){
+                alert("Не указано значение стороны AB.");
+                letin=0;
+                change01=1;
+                document.getElementById("textareaAB1").style.color="red";
+            }
+        }
+        if (isTrueBCgiven==true){
+            whichBCnum=document.getElementById("textareaBC1").value;
+            if (whichBCnum==""){
+                document.getElementById("textareaBC1").style.color="red";
+                alert("Не указано значение стороны BC.");
+                letin=0;
+                change02=1;
+            }
+        }
+        if (isTrueACgiven==true){
+            whichACnum=document.getElementById("textareaAC1").value;
+            if (whichACnum==""){
+                document.getElementById("textareaAC1").style.color="red";
+                alert("Не указано значение стороны AC.");
+                letin=0;
+                change03=1;
+            }
+        }
+        if (isTrueAHgiven==true){
+            whichAHnum=document.getElementById("textareaAH1").value;
+            if (whichAHnum==""){
+                document.getElementById("textareaAH1").style.color="red";
+                alert("Не указано значение стороны AH.");
+                letin=0;
+                change04=1;
+            }
+        }
+        if (isTrueBHgiven==true){
+            whichBHnum=document.getElementById("textareaBH1").value;
+            if (whichBHnum==""){
+                document.getElementById("textareaBH1").style.color="red";
+                alert("Не указано значение стороны BH.");
+                letin=0;
+                change05=1;
+            }
+        }
+        if (isTrueCHgiven==true){
+            whichCHnum=document.getElementById("textareaCH1").value;
+            if (whichCHnum==""){
+                document.getElementById("textareaCH1").style.color="red";
+                alert("Не указано значение стороны CH.");
+                letin=0;
+                change06=1;
+            }
+        }
+        if (isTrueABgiven==true&&isTrueBCgiven==true&&isTrueACgiven==true&&letin==1){
+            let a=whichABnum*2/2;let b=whichBCnum*2/2;let c=whichACnum*2/2;
+            let a1=2*(b+c)/2;let b1=2*(a+c)/2;let c1=2*(a+b)/2;
+            if (!(a<a1&&b<b1&&c<c1)){
+                letin=0;
+                alert("Такой треугольник невозможно построить," +
+                    "так как каждая сторона треугольника должна быть меньше суммы двух других.");
+            }
+        }
+        if (letin==1) {
+            localStorage.setItem("whichABnum",whichABnum);localStorage.setItem("isTrueAHfind",isTrueABfind);
+            localStorage.setItem("whichBCnum",whichBCnum);localStorage.setItem("isTrueBHfind",isTrueBCfind);
+            localStorage.setItem("whichACnum",whichACnum);localStorage.setItem("isTrueCHfind",isTrueACfind);
+            localStorage.setItem("isTrueABgiven",isTrueABgiven);localStorage.setItem("isTrueAHfind",isTrueAHfind);
+            localStorage.setItem("isTrueBCgiven",isTrueBCgiven);localStorage.setItem("isTrueBHfind",isTrueBHfind);
+            localStorage.setItem("isTrueACgiven",isTrueACgiven);localStorage.setItem("isTrueCHfind",isTrueCHfind);
+            localStorage.setItem("isTrueAHgiven",isTrueAHgiven);
+            localStorage.setItem("isTrueBHgiven",isTrueBHgiven);
+            localStorage.setItem("isTrueCHgiven",isTrueCHgiven);
+            if (whichABnum==0||whichBCnum==0||whichACnum==0){
+                alert("Недостаточно данных для построения чертежа.");
+            }else {
+                location.href = 'conductor.html';
+            }
+        }
+        letin=1;
+    }
+
+    function changecolor(){
+        if (change01==1){
+            if (document.getElementById("textareaAB1").value!=""){
+                document.getElementById("textareaAB1").style.color="black";
+                change01=0;
+            }
+    }
+        if (change02==1){
+            if (document.getElementById("textareaBC1").value!=""){
+                document.getElementById("textareaBC1").style.color="black";
+                change02=0;
+            }
+        }
+        if (change03==1){
+            if (document.getElementById("textareaAC1").value!=""){
+                document.getElementById("textareaAC1").style.color="black";
+                change03=0;
+            }
+        }
+
+        if (change04==1){
+            if (document.getElementById("textareaAH1").value!=""){
+                document.getElementById("textareaAH1").style.color="black";
+                change04=0;
+            }
+        }if (change05==1){
+            if (document.getElementById("textareaBH1").value!=""){
+                document.getElementById("textareaBH1").style.color="black";
+                change05=0;
+            }
+        }if (change06==1){
+            if (document.getElementById("textareaCH1").value!=""){
+                document.getElementById("textareaCH1").style.color="black";
+                change06=0;
+            }
+        }
+
+    }
+</script>
+
+ </body>
+</html>
+<!--
+В треугольнике ABC: ∠C=70, AB=BC=4. Найдите ∠B.
+-->
+<!-- В треугольнике ABC сторона AB равна 3, сторона BC равна 4. Из вершины A проведена высота равная 2.
+Найдите AC, высоту из угла B и высоту из угла C.
+
+В треугольнике ABC высота, проведённая из вершины A равняется 7, сторона AB = 8,
+сторона AC равна 12. Найдите высоту BH и сторону BC.
+-->
+

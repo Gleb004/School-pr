@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Drawing</title>
+    <style>
+body{
+    overflow: hidden;
+}
+        .button {
+            padding: 12px 12px;
+            font-size: 22px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            border-radius: 16px;
+            position: fixed;
+            opacity:0.8;
+
+        }
+
+        .button:hover {
+            background-color: #3e8e41;
+            opacity:1;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(5px);
+        }
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.6);
+    border-radius: 12px;
+}
+
+.sidenav a {
+    border-top:solid black 1px;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 36px;
+    margin-left: 0;
+    border:none;
+}
+
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+button{
+    border-top:solid black 1px;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    border:none;
+    background: white;
+}
+button:hover {
+    color: #f1f1f1;
+}
+.letter{
+    font: italic 40px serif;
+    fill: black;
+}
+.num{
+    font: italic 35px serif;
+    fill: black;
+}
+    </style>
+</head>
+<body>
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#8250</a>
+
+    <a><button>Сторона AB</button>
+    </a>
+    <a><button>Сторона BC</button>
+    </a>
+    <a><button>Сторона AC</button>
+    </a>
+
+</div>
+
+<button class="button " style = "top:91%;margin-left:79%;"
+        onclick="location.href = 'MyFile.html'">Edit Text</button>
+<button class="button " style = "top:91%;margin-left:87%;  "
+        onclick="location.href = 'Solution.html'">View Solution</button>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">
+
+    <canvas id="canvas" width="1400" height="740"></canvas>
+
+</span>
+<script>
+    let AB=0; let BC=0; let AC=0;
+    AB=localStorage.getItem("whichABnum");
+    BC=localStorage.getItem("whichBCnum");
+    AC=localStorage.getItem("whichACnum");
+    var isTrueABgiven=localStorage.getItem("isTrueABgiven");
+    var isTrueBCgiven=localStorage.getItem("isTrueBCgiven");
+    var isTrueACgiven=localStorage.getItem("isTrueACgiven");
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext){
+        let AB1=0;let BC1=0;let AC1=0;
+        AB1=AB; BC1=BC; AC1=AC;
+        BC1=Math.max(Math.max(BC,AC),AB)
+        AC1=Math.min(Math.min(BC,AC),AB)
+        AB1=AB*1+BC*1+AC*1-AC1*1-BC1*1;
+        var ctx = canvas.getContext('2d');
+        ctx.font = "36px italic";
+        if (AB==BC&&BC==AC) {
+            AB=AB*550/Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2));
+            ctx.fillText("A", 80, 90);
+            ctx.fillText("B", AB+105, 90);
+            ctx.fillText("C", AB/2 + 110, Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2)) + 120);
+            ctx.beginPath();
+            ctx.moveTo(100, 100);
+            ctx.lineTo(AB+100, 100);
+            ctx.lineTo(AB/2 + 100, Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2)) + 100);
+            ctx.closePath();
+            ctx.stroke();
+        }else if (Math.pow(BC1,2)==Math.pow(AC1,2)+Math.pow(AB1,2)||
+            Math.pow(AC1,2)==Math.pow(BC1,2)+Math.pow(AB1,2)||
+            Math.pow(AB1,2)==Math.pow(AC1,2)+Math.pow(BC1,2)){
+            let AB2=AB1;let AC2=AC1;let BC2=BC1;
+            let k1=1200/BC1; let k2=550/AC1;
+            k1=Math.min(k1,k2);
+            AB1=AB1*k1;AC1=AC1*k1;BC1=BC1*k1;
+            if (BC==BC2) {
+                ctx.fillText("A", 80, 80);
+                ctx.fillText("B", AB1 + 105, 90);
+                ctx.fillText("C", 65, AC1 + 125);
+            }else if (AC2==BC){
+                ctx.fillText("B", 80, 80);
+                ctx.fillText("C", AB1 + 105, 90);
+                ctx.fillText("A", 65, AC1 + 125);
+            }else if (AB2==BC){
+                ctx.fillText("C", 80, 80);
+                ctx.fillText("A", AB1 + 105, 90);
+                ctx.fillText("B", 65, AC1 + 125);
+            }
+            ctx.beginPath();
+            ctx.moveTo(100, 100);
+            ctx.lineTo(AB1+100, 100);
+            ctx.lineTo(100, AC1+100);
+            ctx.closePath();
+            ctx.stroke();
+        }else if (AB==BC||AB==AC||AC==BC){
+                if (AB==BC){
+                    k=550/Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2));
+                    AB=AB*k;AC=AC*k;BC=BC*k;
+                    ctx.fillText("A", 80, 90);
+                    ctx.fillText("C", AC+105, 90);
+                    ctx.fillText("B", AC/2 + 110, Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2)) + 120);
+                    ctx.beginPath();
+                    ctx.moveTo(100, 100);
+                    ctx.lineTo(AC+100, 100);
+                    ctx.lineTo(AC/2 + 100, Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2)) + 100);
+                    ctx.closePath();
+                    ctx.stroke();
+                }else if (AC==BC){
+                    k=550/Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2));
+                    AB=AB*k;AC=AC*k;BC=BC*k;
+                    ctx.fillText("A", 80, 90);
+                    ctx.fillText("C", AB+105, 90);
+                    ctx.fillText("B", AB/2 + 110, Math.sqrt(Math.pow(AC,2)-Math.pow(AC/2,2)) + 120);
+                    ctx.beginPath();
+                    ctx.moveTo(100, 100);
+                    ctx.lineTo(AB+100, 100);
+                    ctx.lineTo(AB/2 + 100, Math.sqrt(Math.pow(AC,2)-Math.pow(AC/2,2)) + 100);
+                    ctx.closePath();
+                    ctx.stroke();
+                }else if (AC==AB){
+                    k=550/Math.sqrt(Math.pow(AB,2)-Math.pow(AB/2,2));
+                    AB=AB*k;AC=AC*k;BC=BC*k;
+                    ctx.fillText("C", 80, 90);
+                    ctx.fillText("B", BC+105, 90);
+                    ctx.fillText("A", BC/2 + 110, Math.sqrt(Math.pow(AC,2)-Math.pow(AC/2,2)) + 120);
+                    ctx.beginPath();
+                    ctx.moveTo(100, 100);
+                    ctx.lineTo(BC+100, 100);
+                    ctx.lineTo(BC/2 + 100, Math.sqrt(Math.pow(AC,2)-Math.pow(AC/2,2)) + 100);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+        }else{
+            let y=(Math.pow(AB,2)+Math.pow(AC,2)-Math.pow(BC,2))/2/AB;
+            let x=Math.sqrt(Math.pow(AC,2)-Math.pow(y,2));
+            k=550/x;
+            k1=550/y;
+            AB=AB*k;AC=AC*k;BC=BC*k;x=x*k;y=y*k;
+            x=Math.abs(x);
+            y=Math.abs(y);
+            while(x>1000) x=x-5;
+            while(y>550) y=y-5;
+            while(AB>1100) AB=AB-5;
+            ctx.fillText("A", 80, 90);
+            ctx.fillText("B", AB+105, 90);
+            ctx.fillText("C", x + 110,y+110);
+            ctx.beginPath();
+            ctx.moveTo(100, 100);
+            ctx.lineTo(AB+100, 100);
+            ctx.lineTo(x + 100, y + 100);
+            ctx.closePath();
+            ctx.stroke();
+        }
+    }
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "300px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+</body>
+</html>
